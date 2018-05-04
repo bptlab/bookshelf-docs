@@ -1,2 +1,5 @@
 # Misc
 .DS_Store
+
+# Local postman environment
+local.postman_environment

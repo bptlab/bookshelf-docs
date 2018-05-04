@@ -1,0 +1,7001 @@
+{	
+	"variables": [],
+	"info": {
+		"name": "Goodstag Service API",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+	{
+	"name":"authentication",
+	"description":"Service description for authentication service",
+	"item": [
+				{
+                        "name": "{{url}}/oauth/token",
+                        "event": [
+                                {
+                                        "listen": "test",
+                                        "script": {
+                                                "type": "text/javascript",
+                                                "exec": [
+                                                        "if(responseCode.code === 200 && responseBody.has(\"access_token\")) {",
+                                                        "    postman.setGlobalVariable(\"access_token\", JSON.parse(responseBody).access_token);",
+                                                        "}"
+                                                ]
+                                        }
+                                }
+                        ],
+                        "request": {
+                                "url": "{{url}}/oauth/token",
+                                "method": "POST",
+                                "header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+               							"description": ""
+               
+									}
+								],
+                                "body": {
+                                        "mode": "urlencoded",
+                                        "urlencoded": [
+                                                {
+                                                        "key": "grant_type",
+                                                        "value": "password",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "username",
+                                                        "value": "{{username}}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "password",
+                                                        "value": "{{password}}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "client_id",
+                                                        "value": "gt-user",
+                                                        "type": "text"
+                                                }
+                                        ]
+                                },
+                                "description": "Authenticate and get token"
+                        },
+                        "response": []
+                },
+                {
+                        "name": "{{url}}/oauth/revoke",
+                        "request": {
+                                "url": "{{url}}/oauth/revoke",
+                                "method": "POST",
+		 						"header": [
+									{
+            							"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"description": "OAuth2 Bearer token from authentication request"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+               							"description": ""
+               
+									}
+								],
+								"body": {
+                                        "mode": "urlencoded",
+                                        "urlencoded": [
+                                                {
+                                                        "key": "token",
+                                                        "value": "{{access_token}}",
+                                                        "type": "text"
+                                                }
+                                        ]
+                                },
+                                "description": "Revoke authentication token"
+                        },
+                        "response": []
+                }
+	]
+	},
+	{
+	"name":"company",
+	"description":"Service description for company service",
+	"item": [
+	{
+	"name": "{{url}}/api/companies",
+	"request": {
+		"url": "{{url}}/api/companies",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"enabled\":\"<true|false>\",\"hostName\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}/properties/{{property}}",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}/properties/{{property}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies",
+	"request": {
+		"url": "{{url}}/api/companies",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/labels",
+	"request": {
+		"url": "{{url}}/api/companies/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}/properties",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}/properties",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}/properties",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}/properties",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/companies/{{companyId}}",
+	"request": {
+		"url": "{{url}}/api/companies/{{companyId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"enabled\":\"<true|false>\",\"hostName\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"device",
+	"description":"Service description for device service",
+	"item": [
+	{
+	"name": "{{url}}/api/devices",
+	"request": {
+		"url": "{{url}}/api/devices",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"Printer|Antenna|Gateway|Handheld|Encoder\",\"details\":{},\"enabled\":\"<true|false>\",\"firmwareVersion\":\"<STRING>\",\"hardwareVersion\":\"<STRING>\",\"ipAddress\":\"<STRING>\",\"labels\":[],\"location\":\"<STRING>\",\"macAddress\":\"<STRING>\",\"manageProtocol\":\"LwM2M\",\"manufacturer\":\"<STRING>\",\"modelNumber\":\"<STRING>\",\"name\":\"<STRING>\",\"provisionKey\":\"<STRING>\",\"serialNumber\":\"<STRING>\",\"softwareVersion\":\"<STRING>\",\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/manage/executeMethod",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/manage/executeMethod",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"key\":\"<STRING>\",\"parameters\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices",
+	"request": {
+		"url": "{{url}}/api/devices",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/labels",
+	"request": {
+		"url": "{{url}}/api/devices/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/manage/getModel",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/manage/getModel",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/companies/{{companyId}}/password",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/companies/{{companyId}}/password",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/companies/{{companyId}}/psk",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/companies/{{companyId}}/psk",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/device/provision",
+	"request": {
+		"url": "{{url}}/api/device/provision",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"Printer|Antenna|Gateway|Handheld|Encoder\",\"features\":[],\"provisionKeys\":[],\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/provision-info",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/provision-info",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/manage/readValue",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/manage/readValue",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/device/provision/{{deviceId}}/reloadPSK",
+	"request": {
+		"url": "{{url}}/api/device/provision/{{deviceId}}/reloadPSK",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/provision/reset",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/provision/reset",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/state",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/state",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"message\":\"<STRING>\",\"state\":\"Online|Offline|Warning|Unknown\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/self/set-update-available",
+	"request": {
+		"url": "{{url}}/api/devices/self/set-update-available",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"Printer|Antenna|Gateway|Handheld|Encoder\",\"details\":{},\"enabled\":\"<true|false>\",\"firmwareVersion\":\"<STRING>\",\"hardwareVersion\":\"<STRING>\",\"ipAddress\":\"<STRING>\",\"labels\":[],\"location\":\"<STRING>\",\"macAddress\":\"<STRING>\",\"manageProtocol\":\"LwM2M\",\"manufacturer\":\"<STRING>\",\"modelNumber\":\"<STRING>\",\"name\":\"<STRING>\",\"provisionKey\":\"<STRING>\",\"serialNumber\":\"<STRING>\",\"softwareVersion\":\"<STRING>\",\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/devices/{{deviceId}}/manage/writeValue",
+	"request": {
+		"url": "{{url}}/api/devices/{{deviceId}}/manage/writeValue",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"values\":{}}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"deviceAttribute",
+	"description":"Service description for deviceAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/device/attributes",
+	"request": {
+		"url": "{{url}}/api/device/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/device/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/device/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/device/attributes",
+	"request": {
+		"url": "{{url}}/api/device/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/device/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/device/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"event",
+	"description":"Service description for event service",
+	"item": [
+	{
+	"name": "{{url}}/api/events",
+	"request": {
+		"url": "{{url}}/api/events",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"count\":0,\"data\":{},\"source\":\"<STRING>\",\"time\":\"<DATE>\",\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/events/batch",
+	"request": {
+		"url": "{{url}}/api/events/batch",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"events\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"eventRule",
+	"description":"Service description for eventRule service",
+	"item": [
+	{
+	"name": "{{url}}/api/event/rules",
+	"request": {
+		"url": "{{url}}/api/event/rules",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"eventSource\":[],\"eventType\":\"<STRING>\",\"name\":\"<STRING>\",\"parameterValues\":{},\"scriptId\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/event/rules/{{id}}",
+	"request": {
+		"url": "{{url}}/api/event/rules/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/event/rules",
+	"request": {
+		"url": "{{url}}/api/event/rules",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/event/rules/{{id}}",
+	"request": {
+		"url": "{{url}}/api/event/rules/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/event/rules/{{id}}",
+	"request": {
+		"url": "{{url}}/api/event/rules/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"eventSource\":[],\"eventType\":\"<STRING>\",\"name\":\"<STRING>\",\"parameterValues\":{},\"scriptId\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"group",
+	"description":"Service description for group service",
+	"item": [
+	{
+	"name": "{{url}}/api/groups",
+	"request": {
+		"url": "{{url}}/api/groups",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"name\":\"<STRING>\",\"userIds\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups/{{groupId}}",
+	"request": {
+		"url": "{{url}}/api/groups/{{groupId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups",
+	"request": {
+		"url": "{{url}}/api/groups",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups/labels",
+	"request": {
+		"url": "{{url}}/api/groups/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups/{{groupId}}",
+	"request": {
+		"url": "{{url}}/api/groups/{{groupId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups/{{groupId}}/roles",
+	"request": {
+		"url": "{{url}}/api/groups/{{groupId}}/roles",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/groups/{{groupId}}",
+	"request": {
+		"url": "{{url}}/api/groups/{{groupId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"name\":\"<STRING>\",\"userIds\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"imprint",
+	"description":"Service description for imprint service",
+	"item": [
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"orderItems\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/cancel",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/cancel",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"deviceList\":[],\"name\":\"<STRING>\",\"orderAttributeList\":[],\"orderItemAttributeList\":[],\"orderWorkflow\":\"PRE_DEFINED_ITEMS|AUTO_CREATED_ITEMS\",\"type\":\"ENCODING|IMPRINT\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"configs\":[],\"orderId\":\"<STRING>\",\"scriptId\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"details\":{},\"labels\":[],\"numberOfItems\":0,\"orderNumber\":\"<STRING>\",\"state\":\"OPEN|PROGRESS|DONE|FULFILLED\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/printed",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/printed",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"details\":{},\"identity\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{id}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/labels",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{id}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items/{{itemId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items/{{itemId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/jobs/nextBatch",
+	"request": {
+		"url": "{{url}}/api/imprint/jobs/nextBatch",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/jobs/next",
+	"request": {
+		"url": "{{url}}/api/imprint/jobs/next",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/itemByIdentity/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/itemByIdentity/{{identity}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/state/order-id/{{orderId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/state/order-id/{{orderId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/state/order-number/{{orderNumber}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/state/order-number/{{orderNumber}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/item-failed",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/item-failed",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/reset",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/reset",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"date\":\"<DATE>\",\"message\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items/{{itemId}}/printed",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/items/{{itemId}}/printed",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/done",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}/done",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{id}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"deviceList\":[],\"name\":\"<STRING>\",\"orderAttributeList\":[],\"orderItemAttributeList\":[],\"orderWorkflow\":\"PRE_DEFINED_ITEMS|AUTO_CREATED_ITEMS\",\"type\":\"ENCODING|IMPRINT\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}/jobs/{{jobId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"bundleNumber\":0,\"deviceId\":\"<STRING>\",\"scriptParameters\":{}}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+	"request": {
+		"url": "{{url}}/api/imprint/profiles/{{profileName}}/orders/{{orderId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"details\":{},\"labels\":[],\"numberOfItems\":0,\"orderNumber\":\"<STRING>\",\"state\":\"OPEN|PROGRESS|DONE|FULFILLED\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"imprintOrderAttribute",
+	"description":"Service description for imprintOrderAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/imprint/order/attributes",
+	"request": {
+		"url": "{{url}}/api/imprint/order/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/order/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/imprint/order/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/order/attributes",
+	"request": {
+		"url": "{{url}}/api/imprint/order/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/order/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/imprint/order/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"imprintOrderItemAttribute",
+	"description":"Service description for imprintOrderItemAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/imprint/item/attributes",
+	"request": {
+		"url": "{{url}}/api/imprint/item/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/item/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/imprint/item/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/item/attributes",
+	"request": {
+		"url": "{{url}}/api/imprint/item/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/imprint/item/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/imprint/item/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"information",
+	"description":"Service description for information service",
+	"item": [
+	{
+	"name": "{{url}}/api/info/notifications/confirm-all",
+	"request": {
+		"url": "{{url}}/api/info/notifications/confirm-all",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications/{{notificationId}}/confirm",
+	"request": {
+		"url": "{{url}}/api/info/notifications/{{notificationId}}/confirm",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications/confirm",
+	"request": {
+		"url": "{{url}}/api/info/notifications/confirm",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities",
+	"request": {
+		"url": "{{url}}/api/info/activities",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"message\":\"<STRING>\",\"properties\":{},\"recipients\":[],\"sources\":[],\"title\":\"<STRING>\",\"total\":0,\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards",
+	"request": {
+		"url": "{{url}}/api/info/dashboards",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"dataSources\":[],\"description\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\",\"rows\":[],\"shared\":\"<true|false>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/incidents",
+	"request": {
+		"url": "{{url}}/api/info/incidents",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"message\":\"<STRING>\",\"properties\":{},\"recipients\":[],\"severity\":\"ERROR|WARNING\",\"sources\":[],\"title\":\"<STRING>\",\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications",
+	"request": {
+		"url": "{{url}}/api/info/notifications",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"message\":\"<STRING>\",\"popup\":\"<true|false>\",\"properties\":{},\"recipients\":[],\"severity\":\"ERROR|WARNING|INFO|LOG\",\"sources\":[],\"title\":\"<STRING>\",\"type\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities/{{activityId}}",
+	"request": {
+		"url": "{{url}}/api/info/activities/{{activityId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards/{{id}}",
+	"request": {
+		"url": "{{url}}/api/info/dashboards/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/incidents/{{incidentId}}",
+	"request": {
+		"url": "{{url}}/api/info/incidents/{{incidentId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications/{{notificationId}}",
+	"request": {
+		"url": "{{url}}/api/info/notifications/{{notificationId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities",
+	"request": {
+		"url": "{{url}}/api/info/activities",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards",
+	"request": {
+		"url": "{{url}}/api/info/dashboards",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/incidents",
+	"request": {
+		"url": "{{url}}/api/info/incidents",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications",
+	"request": {
+		"url": "{{url}}/api/info/notifications",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities/{{activityId}}",
+	"request": {
+		"url": "{{url}}/api/info/activities/{{activityId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards/labels",
+	"request": {
+		"url": "{{url}}/api/info/dashboards/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards/{{id}}",
+	"request": {
+		"url": "{{url}}/api/info/dashboards/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/incidents/{{incidentId}}",
+	"request": {
+		"url": "{{url}}/api/info/incidents/{{incidentId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/notifications/{{notificationId}}",
+	"request": {
+		"url": "{{url}}/api/info/notifications/{{notificationId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/incidents/{{incidentId}}/resolve",
+	"request": {
+		"url": "{{url}}/api/info/incidents/{{incidentId}}/resolve",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"text\":\"<STRING>\",\"type\":\"RESOLVED|DISMISSED\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities/{{activityId}}/done",
+	"request": {
+		"url": "{{url}}/api/info/activities/{{activityId}}/done",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/activities/{{activityId}}/progress",
+	"request": {
+		"url": "{{url}}/api/info/activities/{{activityId}}/progress",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"progressed\":0}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/info/dashboards/{{id}}",
+	"request": {
+		"url": "{{url}}/api/info/dashboards/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"dataSources\":[],\"description\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\",\"rows\":[],\"shared\":\"<true|false>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"location",
+	"description":"Service description for location service",
+	"item": [
+	{
+	"name": "{{url}}/api/locations",
+	"request": {
+		"url": "{{url}}/api/locations",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"city\":\"<STRING>\",\"country\":\"<STRING>\",\"countryCode\":\"<STRING>\",\"details\":{},\"email\":\"<STRING>\",\"fax\":\"<STRING>\",\"labels\":[],\"mobile\":\"<STRING>\",\"name\":\"<STRING>\",\"phone\":\"<STRING>\",\"position\":,\"street\":\"<STRING>\",\"web\":\"<STRING>\",\"zip\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones/{{zoneName}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones/{{zoneName}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations",
+	"request": {
+		"url": "{{url}}/api/locations",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/labels",
+	"request": {
+		"url": "{{url}}/api/locations/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones/{{zoneName}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones/{{zoneName}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"mapName\":\"<STRING>\",\"name\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}/levels/{{levelName}}/zones",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"area\":[],\"name\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/locations/{{locationId}}",
+	"request": {
+		"url": "{{url}}/api/locations/{{locationId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"city\":\"<STRING>\",\"country\":\"<STRING>\",\"countryCode\":\"<STRING>\",\"details\":{},\"email\":\"<STRING>\",\"fax\":\"<STRING>\",\"labels\":[],\"mobile\":\"<STRING>\",\"name\":\"<STRING>\",\"phone\":\"<STRING>\",\"position\":,\"street\":\"<STRING>\",\"web\":\"<STRING>\",\"zip\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"locationAttribute",
+	"description":"Service description for locationAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/location/attributes",
+	"request": {
+		"url": "{{url}}/api/location/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/location/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/location/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/location/attributes",
+	"request": {
+		"url": "{{url}}/api/location/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/location/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/location/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"metric",
+	"description":"Service description for metric service",
+	"item": [
+	{
+	"name": "{{url}}/api/analytics/metrics",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"name\":\"<STRING>\",\"type\":\"COUNTER|GAUGE\",\"unit\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/query",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/query",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":{},\"range\":,\"resolution\":\"ONE_YEAR|ONE_MONTH|ONE_WEEK|ONE_DAY|ONE_HOUR|FIVE_MINUTES|ONE_MINUTE\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/query-grouped",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/query-grouped",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"groupByLabels\":[],\"labels\":{},\"range\":,\"resolution\":\"ONE_YEAR|ONE_MONTH|ONE_WEEK|ONE_DAY|ONE_HOUR|FIVE_MINUTES|ONE_MINUTE\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/query-events",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/query-events",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"groupByLabels\":[],\"labels\":{},\"range\":,\"resolution\":\"ONE_YEAR|ONE_MONTH|ONE_WEEK|ONE_DAY|ONE_HOUR|FIVE_MINUTES|ONE_MINUTE\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/labels/",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/labels/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/labels/{{key}}",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/labels/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/index/references",
+	"request": {
+		"url": "{{url}}/api/analytics/index/references",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"referenceKeys\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}/push",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}/push",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"date\":\"<DATE>\",\"eventLabels\":{},\"labels\":{},\"value\":0}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/analytics/metrics/{{name}}",
+	"request": {
+		"url": "{{url}}/api/analytics/metrics/{{name}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"description\":\"<STRING>\",\"name\":\"<STRING>\",\"type\":\"COUNTER|GAUGE\",\"unit\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"product",
+	"description":"Service description for product service",
+	"item": [
+	{
+	"name": "{{url}}/api/products",
+	"request": {
+		"url": "{{url}}/api/products",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"<STRING>\",\"categoryPath\":\"<STRING>\",\"identities\":[],\"images\":{},\"redirectProfileId\":\"<STRING>\",\"stock\":{},\"translations\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/dec",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/dec",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/images/{{key}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/images/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/translations/{{key}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/translations/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products",
+	"request": {
+		"url": "{{url}}/api/products",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/locales/{{localeString}}",
+	"request": {
+		"url": "{{url}}/api/products/locales/{{localeString}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/translation-name",
+	"request": {
+		"url": "{{url}}/api/products/translation-name",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/images",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/images",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/translations/{{key}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/translations/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/locales/{{localeString}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/locales/{{localeString}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/inc",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/inc",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/{{count}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/stock/{{locationId}}/{{count}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/images",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/images",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}/translations",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}/translations",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"<STRING>\",\"country\":\"<STRING>\",\"description\":\"<STRING>\",\"details\":{},\"language\":\"<STRING>\",\"name\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/products/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/products/{{identity}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"category\":\"<STRING>\",\"categoryPath\":\"<STRING>\",\"identities\":[],\"images\":{},\"redirectProfileId\":\"<STRING>\",\"stock\":{},\"translations\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"productAttribute",
+	"description":"Service description for productAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/product/attributes",
+	"request": {
+		"url": "{{url}}/api/product/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\",\"translation\":{}}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/product/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/product/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/product/attributes",
+	"request": {
+		"url": "{{url}}/api/product/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/product/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/product/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/product/attributes/{{key}}/translations",
+	"request": {
+		"url": "{{url}}/api/product/attributes/{{key}}/translations",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"redirect",
+	"description":"Service description for redirect service",
+	"item": [
+	{
+	"name": "{{url}}/api/redirects",
+	"request": {
+		"url": "{{url}}/api/redirects",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"id\":\"<STRING>\",\"type\":\"REDIRECT|REDIRECT_WITH_QUERY|REDIRECT_SCRIPT\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/redirects/{{id}}",
+	"request": {
+		"url": "{{url}}/api/redirects/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"role",
+	"description":"Service description for role service",
+	"item": [
+	{
+	"name": "{{url}}/api/roles",
+	"request": {
+		"url": "{{url}}/api/roles",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/roles/self",
+	"request": {
+		"url": "{{url}}/api/roles/self",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"script",
+	"description":"Service description for script service",
+	"item": [
+	{
+	"name": "{{url}}/api/scripts",
+	"request": {
+		"url": "{{url}}/api/scripts",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"activeRevision\":\"<DATE>\",\"code\":\"<STRING>\",\"description\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\",\"parameters\":{},\"type\":\"EVENT|IMPRINT_LAYOUT|IMPRINT_ENCODING|REDIRECT\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts",
+	"request": {
+		"url": "{{url}}/api/scripts",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/labels",
+	"request": {
+		"url": "{{url}}/api/scripts/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}/revisions",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}/revisions",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}/parameter/{{key}}",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}/parameter/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}/blacklisted",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}/blacklisted",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}/parameter/",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}/parameter/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}/roles",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}/roles",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/scripts/{{id}}",
+	"request": {
+		"url": "{{url}}/api/scripts/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"activeRevision\":\"<DATE>\",\"code\":\"<STRING>\",\"description\":\"<STRING>\",\"labels\":[],\"name\":\"<STRING>\",\"parameters\":{},\"type\":\"EVENT|IMPRINT_LAYOUT|IMPRINT_ENCODING|REDIRECT\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"storage",
+	"description":"Service description for storage service",
+	"item": [
+	{
+	"name": "{{url}}/api/storage/find",
+	"request": {
+		"url": "{{url}}/api/storage/find",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/storage/revisions",
+	"request": {
+		"url": "{{url}}/api/storage/revisions",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/storage/exists",
+	"request": {
+		"url": "{{url}}/api/storage/exists",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/storage/intent",
+	"request": {
+		"url": "{{url}}/api/storage/intent",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/storage/shared",
+	"request": {
+		"url": "{{url}}/api/storage/shared",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"tag",
+	"description":"Service description for tag service",
+	"item": [
+	{
+	"name": "{{url}}/api/tags",
+	"request": {
+		"url": "{{url}}/api/tags",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"details\":{},\"identities\":[],\"kind\":\"<STRING>\",\"labels\":[],\"location\":\"<STRING>\",\"parent\":\"<STRING>\",\"position\":,\"product\":\"<STRING>\",\"redirectProfileId\":\"<STRING>\",\"state\":\"ACTIVE|CONTAINER_CLOSED|DESTROYED|ENCODED|INACTIVE|IN_PROGRESS|IN_TRANSIT|EXPIRED|DAMAGED|DISPOSED|NO_PEDIGREE_MATCH|NON_SELLABLE_OTHER|RECALLED|RESERVED|RETURNED|SELLABLE_ACCESSIBLE|SELLABLE_NOT_ACCESSIBLE|RETAIL_SOLD|STOLEN|UNKNOWN\",\"tagState\":,\"targetCountryCode\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}/events",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}/events",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags",
+	"request": {
+		"url": "{{url}}/api/tags",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/labels",
+	"request": {
+		"url": "{{url}}/api/tags/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}/inc-tap-count",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}/inc-tap-count",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}/set-nfc-counter",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}/set-nfc-counter",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tags/{{identity}}",
+	"request": {
+		"url": "{{url}}/api/tags/{{identity}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"details\":{},\"identities\":[],\"kind\":\"<STRING>\",\"labels\":[],\"location\":\"<STRING>\",\"parent\":\"<STRING>\",\"position\":,\"product\":\"<STRING>\",\"redirectProfileId\":\"<STRING>\",\"state\":\"ACTIVE|CONTAINER_CLOSED|DESTROYED|ENCODED|INACTIVE|IN_PROGRESS|IN_TRANSIT|EXPIRED|DAMAGED|DISPOSED|NO_PEDIGREE_MATCH|NON_SELLABLE_OTHER|RECALLED|RESERVED|RETURNED|SELLABLE_ACCESSIBLE|SELLABLE_NOT_ACCESSIBLE|RETAIL_SOLD|STOLEN|UNKNOWN\",\"tagState\":,\"targetCountryCode\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"tagAttribute",
+	"description":"Service description for tagAttribute service",
+	"item": [
+	{
+	"name": "{{url}}/api/tag/attributes",
+	"request": {
+		"url": "{{url}}/api/tag/attributes",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"datatype\":\"BOOL|LONG|DOUBLE|STRING\",\"indexed\":\"<true|false>\",\"key\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tag/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/tag/attributes/{{key}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tag/attributes",
+	"request": {
+		"url": "{{url}}/api/tag/attributes",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/tag/attributes/{{key}}",
+	"request": {
+		"url": "{{url}}/api/tag/attributes/{{key}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"tagEvent",
+	"description":"Service description for tagEvent service",
+	"item": [
+	{
+	"name": "{{url}}/api/tag/events",
+	"request": {
+		"url": "{{url}}/api/tag/events",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"user",
+	"description":"Service description for user service",
+	"item": [
+	{
+	"name": "{{url}}/api/users/{{userId}}/company",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/company",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/companies/{{companyId}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/companies/{{companyId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/groups",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/groups",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users",
+	"request": {
+		"url": "{{url}}/api/users",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"enabled\":\"<true|false>\",\"firstname\":\"<STRING>\",\"labels\":[],\"lastname\":\"<STRING>\",\"password\":\"<STRING>\",\"username\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/self",
+	"request": {
+		"url": "{{url}}/api/users/self",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/cloud",
+	"request": {
+		"url": "{{url}}/api/users/cloud",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users",
+	"request": {
+		"url": "{{url}}/api/users",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/labels",
+	"request": {
+		"url": "{{url}}/api/users/labels",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/self",
+	"request": {
+		"url": "{{url}}/api/users/self",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/self/properties/{{property}}",
+	"request": {
+		"url": "{{url}}/api/users/self/properties/{{property}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/groups",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/groups",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/companies",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/companies",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/password",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/password",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/properties",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/properties",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/roles",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/roles",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/is-cloud-user",
+	"request": {
+		"url": "{{url}}/api/users/is-cloud-user",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/company",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/company",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/companies/{{companyId}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/companies/{{companyId}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/groups/{{groupName}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/groups/{{groupName}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/properties/{{property}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/properties/{{property}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/self/password",
+	"request": {
+		"url": "{{url}}/api/users/self/password",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"newPassword\":\"<STRING>\",\"oldPassword\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/password",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/password",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"newPassword\":\"<STRING>\",\"oldPassword\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/properties",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/properties",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}/roles",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}/roles",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": ""
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/self",
+	"request": {
+		"url": "{{url}}/api/users/self",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"enabled\":\"<true|false>\",\"firstname\":\"<STRING>\",\"labels\":[],\"lastname\":\"<STRING>\",\"password\":\"<STRING>\",\"username\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/users/{{userId}}",
+	"request": {
+		"url": "{{url}}/api/users/{{userId}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"enabled\":\"<true|false>\",\"firstname\":\"<STRING>\",\"labels\":[],\"lastname\":\"<STRING>\",\"password\":\"<STRING>\",\"username\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]},{
+	"name":"warehouse",
+	"description":"Service description for warehouse service",
+	"item": [
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}/activate/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}/activate/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}/activate/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}/activate/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}/activate/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}/activate/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}/activate/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}/activate/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/close/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/close/",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"planData\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"planData\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"planData\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"planData\":[]}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/data",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/data",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"level\":\"<STRING>\",\"location\":\"<STRING>\",\"tagIdentities\":[],\"zone\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+		"method": "DELETE",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/diff",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/diff",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/diff/products",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/diff/products",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}/stat/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}/stat/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/diff",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/diff",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/diff/products",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/diff/products",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}/stat/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}/stat/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/diff",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/diff",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/diff/products",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/diff/products",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}/stat/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}/stat/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/stat",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/stat",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/diff",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/diff",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/diff/products",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/diff/products",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/data/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/data/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}/stat/",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}/stat/",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/stat",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/stat",
+		"method": "GET",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/incoming/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/incoming/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/inventory/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/inventory/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/outgoing/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/outgoing/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/plan/replenishment/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"reference\":\"<STRING>\",\"referenceNumber\":\"<STRING>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	},
+	{
+	"name": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+	"request": {
+		"url": "{{url}}/api/warehouse/scan/replenishment/{{id}}",
+		"method": "POST",
+		 "header": [
+			{
+            	"key": "Authorization",
+				"value": "Bearer {{access_token}}",
+				"description": "OAuth2 Bearer token from authentication request"
+			},
+			{
+				"key": "Content-Type",
+				"value": "application/json",
+               	"description": ""
+			}
+		],
+		"body": {
+			"mode": "raw",
+			"raw": "{\"labels\":[],\"location\":\"<STRING>\",\"name\":\"<STRING>\",\"plan\":\"<STRING>\",\"startTime\":\"<DATE>\"}"
+			},
+		"description": ""
+		},
+	"response": []
+	}]}]
+}
