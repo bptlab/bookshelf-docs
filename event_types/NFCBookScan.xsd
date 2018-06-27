@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="NFCBookScan.xsd" targetNamespace="NFCBookScan.xsd" 
+           elementFormDefault="qualified"> 
+    <xs:element name="NFCBookScan"> 
+        <xs:complexType> 
+            <xs:sequence> 
+                <xs:element name="NFCID" type="xs:string"/> 
+                <xs:element name="ISBN" type="xs:string"/> 
+                <xs:element name="title" type="xs:string"/> 
+                <xs:element name="subtitle" type="xs:string"/> 
+                <xs:element name="authors" type="xs:string"/> 
+                <xs:element name="publishedDate" type="xs:string"/> 
+                <xs:element name="description" type="xs:string"/> 
+                <xs:element name="pageCount" type="xs:integer"/> 
+                <xs:element name="language" type="xs:string"/> 
+                <xs:element name="printType" type="xs:string"/> 
+                <xs:element name="category" type="xs:string"/> 
+                <xs:element name="averageRating" type="xs:integer"/> 
+                <xs:element name="imageUrl" type="xs:string"/> 
+                <xs:element name="infoUrl" type="xs:string"/> 
+            </xs:sequence> 
+        </xs:complexType> 
+    </xs:element> 
+</xs:schema>
