@@ -6,18 +6,6 @@
             <xs:sequence> 
                 <xs:element name="NFCID" type="xs:string"/> 
                 <xs:element name="ISBN" type="xs:string"/> 
-                <xs:element name="title" type="xs:string"/> 
-                <xs:element name="subtitle" type="xs:string"/> 
-                <xs:element name="authors" type="xs:string"/> 
-                <xs:element name="publishedDate" type="xs:string"/> 
-                <xs:element name="description" type="xs:string"/> 
-                <xs:element name="pageCount" type="xs:integer"/> 
-                <xs:element name="language" type="xs:string"/> 
-                <xs:element name="printType" type="xs:string"/> 
-                <xs:element name="category" type="xs:string"/> 
-                <xs:element name="averageRating" type="xs:integer"/> 
-                <xs:element name="imageUrl" type="xs:string"/> 
-                <xs:element name="infoUrl" type="xs:string"/> 
             </xs:sequence> 
         </xs:complexType> 
     </xs:element> 
